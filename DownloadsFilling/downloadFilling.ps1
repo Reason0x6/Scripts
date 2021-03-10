@@ -1,40 +1,62 @@
 
-$Location = "C:\Users\Reason6\Downloads"
-$MOVEDCOUNT = 0
-$FILESMOVED = @()
+$FILESCOUNT = 0
 
-#Finding Files & Creating days sort folder
-$files = Get-ChildItem -Path $Location -Attributes a
-$date = Get-Date -Format "yyy_MM_dd"
+function run-Clean{
+    Param (
+        [parameter(Mandatory=$true)]
+        [String]
+        $Location
+    )
+    #$Location = "C:\Users\Reason6\Downloads"
 
-if(Test-Path "C:\Users\Reason6\Downloads\$date"){
-    Write-host "Todays Directory Found"
-}else{
-    [system.io.directory]::CreateDirectory("C:\Users\Reason6\Downloads\$date")
-}
+    $MOVEDCOUNT = 0
+    $FILESMOVED = @()
 
+    #Finding Files & Creating days sort folder
+    $files = Get-ChildItem -Path $Location -Attributes a
 
-## File Sorting
-$MOVEDCOUNT = 0
-foreach($file in $files){
-    $ext = $file.Extension
-    $tempPath = "C:\Users\Reason6\Downloads\$date\$ext"
-
-    if(Test-Path $tempPath){
-        Write-host "$ext Directory Found"
-    }else{
-        [system.io.directory]::CreateDirectory($tempPath)
+    if($files.count -eq $FILESCOUNT){
+        return "No New Files"
     }
-    
-    Move-Item -Path "C:\Users\Reason6\Downloads\$($file.Name)" -Destination "C:\Users\Reason6\Downloads\$date\$ext\$($file.Name)"
+    $date = Get-Date -Format "yyy_MM_dd"
 
-    #logging data for this file
-    $MOVEDCOUNT += 1
-    $TEMPARR = @("$($file.Name)`n")
-    $FILESMOVED += $TEMPARR
+    if(Test-Path "$Location\$date"){
+        Write-host "Todays Directory Found"
+    }else{
+        [system.io.directory]::CreateDirectory("$Location\$date")
+    }
+
+
+    ## File Sorting
+    $MOVEDCOUNT = 0
+    foreach($file in $files){
+        $ext = $file.Extension
+        $tempPath = "$Location\$date\$ext"
+
+        if(Test-Path $tempPath){
+            Write-host "$ext Directory Found"
+        }else{
+            [system.io.directory]::CreateDirectory($tempPath)
+        }
+        
+        Move-Item -Path "$Location\$($file.Name)" -Destination "$Location\$date\$ext\$($file.Name)"
+
+        #logging data for this file
+        $MOVEDCOUNT += 1
+        $TEMPARR = @("$($file.Name)`n")
+        $FILESMOVED += $TEMPARR
+    }
+
+    # Entering file data into log file
+    $TimeStamp = Get-Date
+    "$TimeStamp -> $MOVEDCOUNT Files Moved:`n $FILESMOVED" >> "$Location\Logs\Updates.txt"
+
 }
 
-# Entering file data into log file
-$TimeStamp = Get-Date
-"$TimeStamp -> $MOVEDCOUNT Files Moved:`n $FILESMOVED" >> "C:\Users\Reason6\Downloads\Logs\Updates.txt"
 
+
+#Ghetto Timer for basic testing
+while($true){
+    run-Clean -Location "C:\Users\Reason6\Downloads"
+    Start-Sleep(300)
+}
