@@ -1,6 +1,10 @@
 # Scripts
 
+### Download Filling
 
+Download Filling is a script that will read the files in the downloads folder and sort them into the days date + file ext. so that the spammy downloads folder is clean. 
+
+Eventually will look into removing *OLD* Content
 
 # Licensing
 
