@@ -1,5 +1,4 @@
 import pdfrw
-from datetime import date
 
 print(pdfrw.__version__)
 
@@ -11,10 +10,13 @@ SUBTYPE_KEY = '/Subtype'
 WIDGET_SUBTYPE_KEY = '/Widget'
 PDF_TEXT_APPEARANCE = pdfrw.objects.pdfstring.PdfString.encode('/Courier 28.00 Tf 0 g')
 
-pdf_template = "Forms/Cover_Sheet.pdf"
+pdf_template = "D:/Scripts/FormFillers/Forms/Cover_Sheet.pdf"
 pdf_output = input("Name of output PDF: ")
 pdf_output += ".pdf"
 
+
+FName = input("First Name: ")
+LName = input("Last Name: ")
 CTitle = input("Course Title: ")
 CCode = input("Course Code: ")
 SNum = input("Student Num (No C): ")
@@ -30,8 +32,8 @@ SDate = input("Signed Date: ")
 email = 'C' + SNum + '@uon.edu.au'
 
 data_dict = {
-    'First Name': 'Gavin',
-    'Last Name': 'Austin',
+    'First Name': FName,
+    'Last Name': LName,
     'Student Number': SNum,
     'Email': email,
     'Course Title': CTitle,
