@@ -10,15 +10,15 @@ Eventually will look into removing *OLD* Content
 In Powershell just run the scrip & it will check for new files in incruments given in the script
 ```
 
-### Form Filelrs
+### Form Fillers
 
 Filling in Uni forms sucks bad, so i've made the task of filling in the assessment cover sheets easier. As I need forms to fill, I will update the filler scripts to suite.
 
 *Uses -> import pdfrw -> pip3 install pdfrw* 
 
-When run, the first line with show what version of pdfrw is being used. This script was built on 0.4
+When run, the first line with show what version of pdfrw is being used. This script was built on 0.4 ```print(pdfrw.__version__)```
 
-```
+```python
 python3 .\CoverSheet.py
 ```
 
