@@ -1,7 +1,7 @@
 
 $FILESCOUNT = 0
 
-function run-Clean{
+function cleaner{
     Param (
         [parameter(Mandatory=$true)]
         [String]
@@ -57,6 +57,6 @@ function run-Clean{
 
 #Ghetto Timer for basic testing
 while($true){
-    run-Clean -Location "C:\Users\Reason6\Downloads"
+    cleaner -Location "C:\Users\Reason6\Downloads"
     Start-Sleep(300)
 }
